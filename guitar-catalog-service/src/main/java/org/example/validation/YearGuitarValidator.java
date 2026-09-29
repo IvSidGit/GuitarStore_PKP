@@ -5,15 +5,14 @@ import jakarta.validation.ConstraintValidatorContext;
 
 import java.time.Year;
 
-public class YearGuitarValidator implements ConstraintValidator<ValidYearGutar, String> {
+public class YearGuitarValidator implements ConstraintValidator<ValidYearGuitar, Integer> {
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value == null || value.isBlank()) return true;
+    public boolean isValid(Integer value, ConstraintValidatorContext context) {
+        if (value == null) return true;
 
         try {
-            int year = Integer.parseInt(value);
-            return year >= (Year.now().getValue() - 10) && year <= Year.now().getValue();
+            return value >= (Year.now().getValue() - 10) && value <= Year.now().getValue();
         } catch (NumberFormatException e) {
             return false;
         }

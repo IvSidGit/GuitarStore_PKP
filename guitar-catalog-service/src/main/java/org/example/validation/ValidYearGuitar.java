@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = YearGuitarValidator.class)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidYearGutar {
+public @interface ValidYearGuitar {
 
     String message() default "Некорректный год. Год выпуска гитары должен быть между 2000 и текущим годом.";
 

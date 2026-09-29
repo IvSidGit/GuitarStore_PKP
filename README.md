@@ -15,7 +15,7 @@ docker compose up -d postgres
 
 ```powershell
 .\mvnw.cmd test
-docker compose exec postgres psql -U course -d catalog -c "select * from flyway_schema_history;"
+docker compose exec postgres psql -U course -d guitar-catalog -c "select * from flyway_schema_history;"
 ```
 
 Для остановки инфраструктуры выполните `docker compose down`. Данные сохраняются в именованном томе; команда `docker compose down -v` удалит их и нужна только для осознанного повторения работы с чистой базой.

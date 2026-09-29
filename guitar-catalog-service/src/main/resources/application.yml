@@ -5,7 +5,7 @@ spring:
   application:
     name: guitar-catalog-service
   datasource:
-    url: ${CATALOG_DB_URL:jdbc:postgresql://localhost:5432/catalog}
+    url: ${CATALOG_DB_URL:jdbc:postgresql://localhost:5433/guitar-catalog}
     username: ${DB_USER:course}
     password: ${DB_PASSWORD:course-dev-only}
     hikari:

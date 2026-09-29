@@ -8,11 +8,11 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-course-dev-only}
       POSTGRES_DB: guitar-catalog
     ports:
-      - "127.0.0.1:5432:5432"
+      - "127.0.0.1:5433:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-course} -d catalog"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-course} -d guitar-catalog"]
       interval: 5s
       timeout: 3s
       retries: 20

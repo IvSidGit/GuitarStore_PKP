@@ -15,8 +15,8 @@ public record CreateGuitarRequest(
         @NotBlank @Size(max = 9) @ValidGuitarType String type,
         @Size(max = 20) String color,
         @NotNull UUID brandId,
-        @NotBlank @Min(5000) @Max(200_000) Integer price,
-        @ValidYearGutar Integer publicationYear
+        @NotNull @Min(5000) @Max(200_000) Integer price,
+        @ValidYearGuitar Integer publicationYear
 ) {
 }
 
