@@ -8,8 +8,8 @@ docker compose up -d postgres
 
 Сервис доступен по адресу `http://localhost:8080`. Основные ресурсы:
 
-- `GET /api/authors` и `POST /api/authors`;
-- `GET /api/books`, `GET /api/books/{id}` и `POST /api/books`.
+- `GET /api/brands` и `POST /api/brands`;
+- `GET /api/guitars`, `GET /api/guitars/{id}` и `POST /api/guitars`.
 
 ## Проверка
 
