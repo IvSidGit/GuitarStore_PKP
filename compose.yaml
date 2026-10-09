@@ -1,4 +1,4 @@
-name: enterprise-guitars-lab01
+name: enterprise-guitars-lab02
 
 services:
   postgres:

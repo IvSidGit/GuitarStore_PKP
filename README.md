@@ -3,13 +3,15 @@
 ```powershell
 Copy-Item .env.example .env
 docker compose up -d postgres
-.\mvnw.cmd -pl guitar-catalog-service spring-boot:run
+.\mvnw.cmd -pl guitar-catalog-service spring-boot:run "-Dspring-boot.run.profiles=session-auth"
 ```
 
-Сервис доступен по адресу `http://localhost:8080`. Основные ресурсы:
+Сервис доступен по адресу `http://localhost:8080`. Страница входа находится по адресу `http://localhost:8080/login`. Учебные пользователи:
 
-- `GET /api/brands` и `POST /api/brands`;
-- `GET /api/guitars`, `GET /api/guitars/{id}` и `POST /api/guitars`.
+- `student/student` с ролью `READER` для чтения;
+- `editor/editor` с ролями `READER` и `EDITOR` для чтения и изменения.
+
+Endpoint `GET /csrf` возвращает CSRF token для PowerShell-сценария и доверенного браузерного клиента. Изменяющие запросы требуют одновременно session cookie, подходящую роль и заголовок `X-XSRF-TOKEN`.
 
 ## Проверка
 
