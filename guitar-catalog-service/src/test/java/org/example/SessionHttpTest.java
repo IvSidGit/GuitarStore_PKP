@@ -48,19 +48,23 @@ class SessionHttpTest {
         editor.login("editor");
         assertThat(editor.get("/api/guitars").statusCode()).isEqualTo(200);
         String editorToken = editor.token();
-        assertThat(editor.post("/api/brands", "{\"name\":\"HTTP Test Brand\"}",
+
+        assertThat(editor.post("/api/brands", "{\"name\":\"HTTP Test Brand\",\"description\":\"test brand\"}",
                 "application/json", editorToken).statusCode()).isEqualTo(201);
-        assertThat(editor.post("/api/brands", "{\"name\":\"Missing CSRF\"}",
+
+        assertThat(editor.post("/api/brands", "{\"name\":\"Missing CSRF\",\"description\":\"test brand\"}",
                 "application/json", null).statusCode()).isEqualTo(403);
         String rawToken = editor.cookie("XSRF-TOKEN");
         assertThat(rawToken).isNotEqualTo(editorToken);
-        assertThat(editor.post("/api/brands", "{\"name\":\"Raw CSRF\"}",
+
+        assertThat(editor.post("/api/brands", "{\"name\":\"Raw CSRF\",\"description\":\"test brand\"}",
                 "application/json", rawToken).statusCode()).isEqualTo(403);
 
         Browser reader = new Browser();
         reader.login("student");
         assertThat(reader.get("/api/guitars").statusCode()).isEqualTo(200);
-        assertThat(reader.post("/api/brands", "{\"name\":\"Forbidden Brand\"}",
+
+        assertThat(reader.post("/api/brands", "{\"name\":\"Forbidden Brand\",\"description\":\"test brand\"}",
                 "application/json", reader.token()).statusCode()).isEqualTo(403);
 
         String oldId = editor.cookie("JSESSIONID");
@@ -120,7 +124,7 @@ class SessionHttpTest {
                     .matcher(page.body());
             assertThat(match.find()).isTrue();
             var response = post("/login", "username=" + user + "&password=" + user + "&_csrf="
-                    + URLEncoder.encode(match.group(1), StandardCharsets.UTF_8),
+                            + URLEncoder.encode(match.group(1), StandardCharsets.UTF_8),
                     "application/x-www-form-urlencoded", null);
             assertThat(response.statusCode()).isEqualTo(302);
             assertThat(response.headers().firstValue("location").orElseThrow()).endsWith("/api/guitars");
