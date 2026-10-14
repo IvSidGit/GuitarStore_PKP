@@ -1,4 +1,4 @@
-name: enterprise-guitars-lab03
+name: enterprise-guitars-lab05
 
 services:
   postgres:
@@ -29,6 +29,19 @@ services:
     volumes:
       - ./infra/keycloak/course-realm.json:/opt/keycloak/data/import/course-realm.json:ro
 
+  redis:
+    image: redis:8.2-alpine
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
 volumes:
   postgres-data:
+  redis-data:
 

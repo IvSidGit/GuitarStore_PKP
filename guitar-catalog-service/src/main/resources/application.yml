@@ -11,6 +11,12 @@ server:
 spring:
   application:
     name: guitar-catalog-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OIDC_ISSUER:http://localhost:8085/realms/course}
+          audiences: library-service
   datasource:
     url: ${CATALOG_DB_URL:jdbc:postgresql://localhost:5433/guitar-catalog}
     username: ${DB_USER:course}
