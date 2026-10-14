@@ -1,23 +1,25 @@
-## Запуск
+## Состав
+
+- `guitar-catalog-service` – сохранённое состояние работы 2.
+- `recommendation-service` – новое API на порту 8083 с проверкой JWT и ролей.
+- `infra/keycloak/course-realm.json` – минимальный realm с тремя машинными клиентами.
+
+## Запуск основного сценария
+
+Нужны JDK 21+, PowerShell 7 и Docker Desktop с Linux-контейнерами. Остановите Java-процессы прошлого снимка и выполните в его каталоге `docker compose down`. Затем перейдите в каталог этого снимка:
 
 ```powershell
-Copy-Item .env.example .env
-docker compose up -d postgres
-.\mvnw.cmd -pl guitar-catalog-service spring-boot:run "-Dspring-boot.run.profiles=session-auth"
+docker compose up -d keycloak
+docker compose logs keycloak
+Invoke-RestMethod http://localhost:8085/realms/course/.well-known/openid-configuration |
+  Select-Object issuer,token_endpoint,jwks_uri
+.\mvnw.cmd -pl recommendation-service spring-boot:run
 ```
 
-Сервис доступен по адресу `http://localhost:8080`. Страница входа находится по адресу `http://localhost:8080/login`. Учебные пользователи:
+## Изменение realm и остановка
 
-- `student/student` с ролью `READER` для чтения;
-- `editor/editor` с ролями `READER` и `EDITOR` для чтения и изменения.
-
-Endpoint `GET /csrf` возвращает CSRF token для PowerShell-сценария и доверенного браузерного клиента. Изменяющие запросы требуют одновременно session cookie, подходящую роль и заголовок `X-XSRF-TOKEN`.
-
-## Проверка
+При обычном повторном старте существующий realm не перезаписывается. После изменения JSON:
 
 ```powershell
-.\mvnw.cmd test
-docker compose exec postgres psql -U course -d guitar-catalog -c "select * from flyway_schema_history;"
+docker compose up -d --force-recreate keycloak
 ```
-
-Для остановки инфраструктуры выполните `docker compose down`. Данные сохраняются в именованном томе; команда `docker compose down -v` удалит их и нужна только для осознанного повторения работы с чистой базой.
