@@ -25,7 +25,7 @@
 
     <modules>
         <module>guitar-catalog-service</module>
-        <module>recomendation-service</module>
+        <module>recommendation-service</module>
     </modules>
 
     <dependencyManagement>
