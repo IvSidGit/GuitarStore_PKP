@@ -43,3 +43,4 @@ class BffControllerTest {
                 .containsEntry("name", "editor");
     }
 }
+
