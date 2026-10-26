@@ -32,7 +32,7 @@ if ($guitars.Count -eq 0) {
     $csrf = Invoke-RestMethod -WebSession $browser -Uri "$GatewayUrl/bff/csrf"
     $headers = @{$csrf.headerName=$csrf.token}
     $brand = Invoke-RestMethod -WebSession $browser -Method Post -Uri "$GatewayUrl/api/brands" `
-        -ContentType 'application/json' -Headers $headers -Body '{"name":"Trace Demo Author"}'
+        -ContentType 'application/json' -Headers $headers -Body '{"name":"Yamaha", "description":"Great brand :)"}'
     $guitarBody = @{serialNumber='3456367';model='YHKKDH34';type='electric';color='white';brandId=$brand.id;price=40000;publicationYear=2026} | ConvertTo-Json
     $guitar = Invoke-RestMethod -WebSession $browser -Method Post -Uri "$GatewayUrl/api/guitars" `
         -ContentType 'application/json' -Headers $headers -Body $guitarBody

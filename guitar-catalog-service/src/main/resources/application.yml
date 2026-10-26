@@ -76,7 +76,7 @@ management:
 
 logging:
   file:
-    name: ${LOG_DIR:../runtime-logs}/library-service.log
+    name: ${LOG_DIR:../runtime-logs}/guitar-catalog-service.log
   include-application-name: false
   pattern:
     correlation: "[${spring.application.name:},trace_id=%X{traceId:-},span_id=%X{spanId:-},request_id=%X{requestId:-}] "

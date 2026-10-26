@@ -37,11 +37,11 @@
       "defaultClientScopes": ["web-origins", "profile", "roles", "email"],
       "protocolMappers": [
         {
-          "name": "aud-library",
+          "name": "aud-catalog",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-audience-mapper",
           "config": {
-            "included.custom.audience": "library-service",
+            "included.custom.audience": "guitar-catalog-service",
             "id.token.claim": "false",
             "access.token.claim": "true"
           }
